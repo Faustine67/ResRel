@@ -59,6 +59,9 @@ database-init: ## Init database
 	$(MAKE) database-fixtures-load-test
 	@$(call GREEN,"Database and test database have been initialized.")
 
+permission-corrections:
+	$(EXEC) -c "chmod +x bin/console"
+
 database-drop: ## Drop database
 	$(EXEC) -c "bin/console d:d:d --force --if-exists"
 

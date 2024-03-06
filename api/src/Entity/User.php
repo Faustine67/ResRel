@@ -37,6 +37,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $lastname = null;
 
+    #[ORM\Column]
+    private ?bool $is_active = null;
+
+    #[ORM\Column]
+    private ?bool $is_verified = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -161,6 +167,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastname(string $lastname): static
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function isIsActive(): ?bool
+    {
+        return $this->is_active;
+    }
+
+    public function setIsActive(bool $is_active): static
+    {
+        $this->is_active = $is_active;
+
+        return $this;
+    }
+
+    public function isIsVerified(): ?bool
+    {
+        return $this->is_verified;
+    }
+
+    public function setIsVerified(bool $is_verified): static
+    {
+        $this->is_verified = $is_verified;
 
         return $this;
     }
