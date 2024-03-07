@@ -5,62 +5,75 @@ namespace App\Entity;
 use App\Repository\RessourceRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\ApiResource\Ressource as RessourceResource;
+
 
 #[ORM\Entity(repositoryClass: RessourceRepository::class)]
 class Ressource
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+	#[ORM\Id]
+	#[ORM\GeneratedValue]
+	#[ORM\Column]
+	private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+	#[ORM\Column(length: 255)]
+	private ?string $name = null;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $description = null;
+	#[ORM\Column(type: Types::TEXT)]
+	private ?string $description = null;
 
-    #[ORM\ManyToOne]
-    private ?User $id_user = null;
+	#[ORM\ManyToOne]
+	private ?User $id_user = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+	public function getId(): ?int
+	{
+		return $this->id;
+	}
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
+	public function getName(): ?string
+	{
+		return $this->name;
+	}
 
-    public function setName(string $name): static
-    {
-        $this->name = $name;
+	public function setName(string $name): static
+	{
+		$this->name = $name;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
+	public function getDescription(): ?string
+	{
+		return $this->description;
+	}
 
-    public function setDescription(string $description): static
-    {
-        $this->description = $description;
+	public function setDescription(string $description): static
+	{
+		$this->description = $description;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    public function getIdUser(): ?User
-    {
-        return $this->id_user;
-    }
+	public function getIdUser(): ?User
+	{
+		return $this->id_user;
+	}
 
-    public function setIdUser(?User $id_user): static
-    {
-        $this->id_user = $id_user;
+	public function setIdUser(?User $id_user): static
+	{
+		$this->id_user = $id_user;
 
-        return $this;
-    }
+		return $this;
+	}
+
+	public function toResource(): RessourceResource
+	{
+		$ressourceRessource = new RessourceResource();
+		$ressourceRessource->id = $this->getId();
+		$ressourceRessource->name = $this->getName();
+		$ressourceRessource->description = $this->getDescription();
+
+
+		return $ressourceRessource;
+	}
 }

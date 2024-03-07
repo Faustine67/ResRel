@@ -11,187 +11,187 @@ use App\ApiResource\User as UserResource;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+	#[ORM\Id]
+	#[ORM\GeneratedValue]
+	#[ORM\Column]
+	private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
-    private ?string $email = null;
+	#[ORM\Column(length: 180, unique: true)]
+	private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $username = null;
+	#[ORM\Column(length: 255)]
+	private ?string $username = null;
 
-    #[ORM\Column]
-    private array $roles = [];
+	#[ORM\Column]
+	private array $roles = [];
 
-    /**
-     * @var string The hashed password
-     */
-    #[ORM\Column]
-    private ?string $password = null;
+	/**
+	 * @var string The hashed password
+	 */
+	#[ORM\Column]
+	private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $firstname = null;
+	#[ORM\Column(length: 255)]
+	private ?string $firstname = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $lastname = null;
+	#[ORM\Column(length: 255)]
+	private ?string $lastname = null;
 
-    #[ORM\Column]
-    private ?bool $is_active = null;
+	// #[ORM\Column]
+	// private ?bool $is_active = null;
 
-    #[ORM\Column]
-    private ?bool $is_verified = null;
+	// #[ORM\Column]
+	// private ?bool $is_verified = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+	public function getId(): ?int
+	{
+		return $this->id;
+	}
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
+	public function getEmail(): ?string
+	{
+		return $this->email;
+	}
 
-    public function setEmail(string $email): static
-    {
-        $this->email = $email;
+	public function setEmail(string $email): static
+	{
+		$this->email = $email;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUserIdentifier(): string
-    {
-        return (string) $this->email;
-    }
+	/**
+	 * A visual identifier that represents this user.
+	 *
+	 * @see UserInterface
+	 */
+	public function getUserIdentifier(): string
+	{
+		return (string) $this->email;
+	}
 
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+	/**
+	 * @see UserInterface
+	 */
+	public function getRoles(): array
+	{
+		$roles = $this->roles;
+		// guarantee every user at least has ROLE_USER
+		$roles[] = 'ROLE_USER';
 
-        return array_unique($roles);
-    }
+		return array_unique($roles);
+	}
 
-    public function setRoles(array $roles): static
-    {
-        $this->roles = $roles;
+	public function setRoles(array $roles): static
+	{
+		$this->roles = $roles;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
+	/**
+	 * @see PasswordAuthenticatedUserInterface
+	 */
+	public function getPassword(): string
+	{
+		return $this->password;
+	}
 
-    public function setPassword(string $password): static
-    {
-        $this->password = $password;
+	public function setPassword(string $password): static
+	{
+		$this->password = $password;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    public function getUsername(): ?string
-    {
-        return $this->firstname;
-    }
+	public function getUsername(): ?string
+	{
+		return $this->firstname;
+	}
 
-    public function setUsername(string $username): static
-    {
-        $this->username = $username;
+	public function setUsername(string $username): static
+	{
+		$this->username = $username;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    /* *
+	/* *
      * Fetch user for authentication
      * @return string
      */
-    /* public function getUsername(): string {
+	/* public function getUsername(): string {
 
         return $this->getUserIdentifier();
     } */
 
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials(): void
-    {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
-    }
+	/**
+	 * @see UserInterface
+	 */
+	public function eraseCredentials(): void
+	{
+		// If you store any temporary, sensitive data on the user, clear it here
+		// $this->plainPassword = null;
+	}
 
-    public function toResource(): UserResource
-    {
-        $userResource = new UserResource();
-        $userResource->id = $this->getId();
-        $userResource->email = $this->getEmail();
-        $userResource->firstname = $this->getFirstname();
-        $userResource->lastname = $this->getLastname();
-        $userResource->username = $this->getUsername();
+	public function toResource(): UserResource
+	{
+		$userResource = new UserResource();
+		$userResource->id = $this->getId();
+		$userResource->email = $this->getEmail();
+		$userResource->firstname = $this->getFirstname();
+		$userResource->lastname = $this->getLastname();
+		$userResource->username = $this->getUsername();
 
 
-        return $userResource;
-    }
+		return $userResource;
+	}
 
-    public function getFirstname(): ?string
-    {
-        return $this->firstname;
-    }
+	public function getFirstname(): ?string
+	{
+		return $this->firstname;
+	}
 
-    public function setFirstname(string $firstname): static
-    {
-        $this->firstname = $firstname;
+	public function setFirstname(string $firstname): static
+	{
+		$this->firstname = $firstname;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    public function getLastname(): ?string
-    {
-        return $this->lastname;
-    }
+	public function getLastname(): ?string
+	{
+		return $this->lastname;
+	}
 
-    public function setLastname(string $lastname): static
-    {
-        $this->lastname = $lastname;
+	public function setLastname(string $lastname): static
+	{
+		$this->lastname = $lastname;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    public function isIsActive(): ?bool
-    {
-        return $this->is_active;
-    }
+	// public function isIsActive(): ?bool
+	// {
+	//     return $this->is_active;
+	// }
 
-    public function setIsActive(bool $is_active): static
-    {
-        $this->is_active = $is_active;
+	// public function setIsActive(bool $is_active): static
+	// {
+	//     $this->is_active = $is_active;
 
-        return $this;
-    }
+	//     return $this;
+	// }
 
-    public function isIsVerified(): ?bool
-    {
-        return $this->is_verified;
-    }
+	// public function isIsVerified(): ?bool
+	// {
+	//     return $this->is_verified;
+	// }
 
-    public function setIsVerified(bool $is_verified): static
-    {
-        $this->is_verified = $is_verified;
+	// public function setIsVerified(bool $is_verified): static
+	// {
+	//     $this->is_verified = $is_verified;
 
-        return $this;
-    }
+	//     return $this;
+	// }
 }
